@@ -18,7 +18,7 @@ h1{font-size:clamp(2.3rem,10vw,3.6rem)}h2{font-size:clamp(2rem,8.5vw,3rem)}
 .note{font-size:.8rem;opacity:.7}
 /* envelope */
 #env{position:fixed;inset:0;z-index:50;background:transparent;pointer-events:auto;perspective:1400px}
-#env .p{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;transition:transform 1.4s cubic-bezier(.6,0,.15,1),box-shadow 1.4s ease;box-shadow:0 0 25px rgba(0,0,0,0.35);background:#fff;transform-style:preserve-3d;backface-visibility:hidden}
+#env .p{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;transition:transform 1.4s cubic-bezier(.6,0,.15,1),box-shadow 1.4s ease;box-shadow:0 0 25px rgba(0,0,0,0.35);background:#fff;transform-style:preserve-3d}
 #env .p i{position:absolute;top:0;width:100vw;height:100%;background:var(--env) center/cover;pointer-events:none}
 #env .l{left:0;transform-origin:left center;border-right:1px solid rgba(0,0,0,0.18)}
 #env .l i{left:0}
@@ -30,19 +30,24 @@ h1{font-size:clamp(2.3rem,10vw,3.6rem)}h2{font-size:clamp(2rem,8.5vw,3rem)}
 #env .l .door-handle{right:16px}
 #env .r .door-handle{left:16px}
 
-/* Door swing open */
-#env.go .l{transform:rotateY(-105deg);box-shadow:10px 0 30px rgba(0,0,0,0.5)}
-#env.go .r{transform:rotateY(105deg);box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
+/* Door swing open inside */
+#env.go .l{transform:rotateY(100deg);box-shadow:-12px 0 35px rgba(0,0,0,0.6)}
+#env.go .r{transform:rotateY(-100deg);box-shadow:12px 0 35px rgba(0,0,0,0.6)}
 
 #seal{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:2px solid rgba(255,255,255,0.7);background:radial-gradient(circle,rgba(255,255,255,0.3) 0%,transparent 70%);cursor:pointer;transition:transform .4s,opacity .4s;z-index:52;padding:0;box-shadow:0 0 25px rgba(255,255,255,0.4)}
-#env.go #seal,#env.go .tap{opacity:0;transform:scale(1.25);pointer-events:none}
+#env.go #seal,#env.go .tap{opacity:0;transform:scale(0.85);pointer-events:none}
 .tap{position:absolute;left:50%;transform:translateX(-50%);top:calc(50% + 78px);text-align:center;font:400 2rem 'Great Vibes',cursive;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.9),0 0 16px rgba(0,0,0,0.7);background:rgba(29,47,79,0.6);backdrop-filter:blur(6px);padding:4px 24px;border-radius:99px;border:1px solid rgba(255,255,255,0.5);transition:opacity .35s;z-index:52;white-space:nowrap}
 #env.go{pointer-events:none}
 /* stage */
 #stage{opacity:1}
 body.open #stage{opacity:1}
 @keyframes cardIn{from{opacity:1;transform:none}to{opacity:1;transform:none}}
-.scene{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:7rem 1.6rem;overflow:hidden;scroll-snap-align:start;isolation:isolate;--fg:var(--navy);color:var(--fg)}
+.scene{position:relative;min-height:auto;display:flex;align-items:center;justify-content:center;text-align:center;padding:2.2rem 1.2rem;overflow:hidden;isolation:isolate;--fg:var(--navy);color:var(--fg)}
+.scene.s1{min-height:75svh;padding-top:3.5rem}
+@media (max-width:600px){
+  .scene{padding:1.6rem 1rem}
+  .scene.s1{min-height:70svh;padding-top:2.5rem}
+}
 .scene::before{display:none!important}
 .in{max-width:420px;width:100%}
 .rv{opacity:0;transform:translateY(32px);filter:blur(4px);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1),filter .75s ease;transition-delay:var(--d,0s)}
@@ -244,9 +249,11 @@ a.map{text-decoration:none}
 @media (max-width:385px){#gate-card{transform:scale(0.88);transform-origin:center}}
 @media (max-width:345px){#gate-card{transform:scale(0.8);transform-origin:center}}
 .board-img{position:absolute;width:411.16px;height:307px;left:-19px;top:0;pointer-events:none;object-fit:contain}
-.board-your-name{position:absolute;width:72px;height:19px;left:151px;top:194px;font-family:'Jost',sans-serif;font-style:normal;font-weight:500;font-size:14px;line-height:19px;text-align:center;color:#FFFFFF;pointer-events:none;letter-spacing:0.02em}
-.board-single-input{position:absolute;width:200px;height:30px;left:calc(50% - 100px);top:226px;font-family:'Leckerli One',cursive;font-style:normal;font-weight:400;font-size:20px;line-height:27px;color:#FFFFFF;text-align:center;background:transparent!important;border:none!important;border-bottom:1.5px dashed rgba(255,255,255,0.6)!important;outline:none!important;padding:0!important;box-shadow:none!important;box-sizing:border-box}
-.board-single-input::placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px}
+.board-your-name{position:absolute;width:72px;height:19px;left:calc(50% - 36px);top:194px;font-family:'Jost',sans-serif;font-style:normal;font-weight:500;font-size:14px;line-height:19px;text-align:center;color:#FFFFFF;pointer-events:none;letter-spacing:0.02em}
+.board-single-input{position:absolute;width:200px;height:30px;left:calc(50% - 100px);top:226px;font-family:'Leckerli One',cursive;font-style:normal;font-weight:400;font-size:20px;line-height:27px;color:#FFFFFF;text-align:center!important;background:transparent!important;border:none!important;border-bottom:1.5px dashed rgba(255,255,255,0.6)!important;outline:none!important;padding:0!important;box-shadow:none!important;box-sizing:border-box}
+.board-single-input::placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px;text-align:center!important}
+.board-single-input::-webkit-input-placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px;text-align:center!important}
+.board-single-input::-moz-placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px;text-align:center!important}
 .board-single-input:focus{border-bottom-color:#ffffff!important}
 .gate-btn-container{display:flex;flex-direction:column;align-items:center;padding:0;gap:8px;position:absolute;width:280px;left:calc(50% - 140px);top:318px}
 .gate-cta{display:flex;flex-direction:row;justify-content:center;align-items:center;padding:14px 10px;gap:8px;width:280px;height:80px;background:#1d2f4f;border-radius:46px;border:none;color:#FFFFFF;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:500;font-size:16px;line-height:20px;cursor:pointer;box-shadow:0 6px 18px rgba(29,47,79,0.35);transition:transform .2s,background-color .2s;box-sizing:border-box}
@@ -255,7 +262,6 @@ a.map{text-decoration:none}
 .gate-skip span{white-space:nowrap;display:inline-block}
 .gate-skip:hover{opacity:.85}
 .gate-credit{font-family:'Caveat','Jost',cursive,sans-serif;font-size:14px;color:#64748b;letter-spacing:0.02em;margin-top:2px;text-align:center;white-space:nowrap;user-select:none}
-.door-credit{position:absolute;bottom:calc(2rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-family:'Caveat','Jost',cursive,sans-serif;font-size:1.15rem;color:#fdf6ec;text-shadow:0 2px 8px rgba(0,0,0,0.6);z-index:10;white-space:nowrap;pointer-events:none}
 .roll{position:relative}
 .roll li.me{border:2px solid #a65a6c;background:#fff3f6;animation:glowme 1.6s ease-in-out infinite alternate}
 .roll li.me::before{content:"YOU";position:absolute;left:6px;top:-8px;font-size:.55rem;font-weight:700;background:#a65a6c;color:#fff;padding:0 6px;border-radius:99px}
@@ -301,7 +307,6 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 
 <div id="env"><div class="p l"><i></i><div class="door-handle"></div></div><div class="p r"><i></i><div class="door-handle"></div></div>
 <button id="seal" aria-label="Open the door"></button><div class="tap" id="tp">Enter our memories</div>
-<div class="door-credit">✨ Made with ❤️ by Debasish ✨</div>
 </div>
 
 <main id="stage">
@@ -310,11 +315,8 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   <h1 class="split">Batch of 2017: The Reunion</h1>
   <p class="rv" style="--d:.5s">N.C. College<br>Department of BCA</p>
   <p class="script rv" style="--d:.7s">Some friendships deserve a reunion, not just a WhatsApp group!</p>
-  <p class="rv" style="--d:.85s;font-size:0.95rem;margin-top:1.2rem;color:var(--navy);font-weight:500;letter-spacing:0.02em">✨ Made with ❤️ by Debasish ✨</p>
   <span class="hint rv" style="--d:1s">⌄</span>
 </div></section>
-
-</div>
 
 <section class="scene s2" data-bg="#fdf6ec" data-fg="#2a2826"><div class="in">
   <div class="logo" role="img" aria-label="Narasingh Choudhuri Autonomous College Logo" style="background-image:url('college_logo.png');background-size:cover;background-position:center;width:120px;height:120px;border-radius:50%;border:3px solid #C69624;box-shadow:0 8px 24px rgba(29,47,79,0.25);margin:0 auto 1rem"></div>
@@ -335,8 +337,6 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   </div>
 </div></section>
 
-</div>
-
 <section class="scene s4" data-bg="#f0f7f4" data-fg="#1b2e2b"><div class="in" style="max-width:520px">
   <h2 class="split">The schedule</h2>
   <div class="car rv" data-t="1" style="--d:.3s"><div class="track" tabindex="0" aria-label="Schedule">
@@ -350,8 +350,6 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
     <div class="card"><div class="em">👋</div><b>Farewell &amp; closing</b><div class="t">Sun, 27 Dec · 4:30–5:00 PM<br>Main hall</div><p>Last hugs before we scatter.</p></div>
   </div><button class="pv" aria-label="Previous">‹</button><button class="nx" aria-label="Next">›</button></div>
 </div></section>
-
-</div>
 
 <section class="scene s4" data-bg="#fdf5ea" data-fg="#2e261f"><div class="in">
   <h2 class="split">Food menu</h2>
@@ -402,8 +400,6 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   <p class="note rv">Sample slider. Your old and recent photos will go here.</p>
 </div></section>
 
-</div>
-
 <section class="scene s3" data-bg="#f8f4ff" data-fg="#261e38"><div class="in">
   <h2 class="split">The people, the memories, the bond.</h2>
   
@@ -411,7 +407,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
     <p class="note" id="reg-note">Registered attendees and their attendance responses:</p>
     <ul id="roll" class="roll"></ul>
     <div id="roll-empty" class="roll-empty">No attendees entered yet. Enter your details to register!</div>
-    <details class="add"><summary>Not on the list? Add your name</summary><div class="row"><input id="an" placeholder="Your name" maxlength="40"><input id="ar" placeholder="Roll no." maxlength="6"><button id="ab" type="button">Add me</button></div></details></div>
+    <details class="add"><summary>Not on the list? Add your name</summary><div class="row"><input id="an" placeholder="Your name" maxlength="40"><button id="ab" type="button">Add me</button></div></details></div>
   <div id="who" class="who" hidden><p class="script" id="wh"></p><p>Are you coming to the reunion?</p>
     <div class="row"><button class="ans" data-k="y">Present!</button><button class="ans" data-k="y">Definitely coming!</button><button class="ans" data-k="m">Missing you all!</button><button class="ans" data-k="n">Can’t make it this time</button></div></div>
   <div id="res" hidden></div>
@@ -433,16 +429,13 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   <div class="row rv" style="--d:.5s"><a class="btn big" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Jajpur+Odisha+India">Get directions</a><button id="copy" class="sec">Copy address</button></div>
 </div></section>
 
-</div>
-
 <section class="scene s8" data-bg="#fdf2f4" data-fg="#2e1b20" id="rsvp"><div class="in">
   <h2 class="split">So, are you coming?</h2>
   <p class="rv" style="--d:.3s">Don’t just react to the WhatsApp group message. Confirm your attendance!</p>
   <form id="f" class="rv" style="--d:.4s">
     <label>Full name<input name="n" required></label>
-    <label>Roll number<input name="r" placeholder="From the register"></label>
     <label>Phone (optional)<input name="p" type="tel"></label>
-    <label>Guests<select name="g"><option>0</option><option>1</option><option>2</option><option>3</option></select></label>
+    <label>Guests<select name="g"><option>0</option><option selected>1</option><option>2</option><option>3</option></select></label>
     <label>Attendance<select name="a"><option>Definitely coming!</option><option>Present!</option><option>Can’t make it this time</option></select></label>
     <label>Suggestions (optional)<textarea name="sg" rows="3" maxlength="300" placeholder="Food, games, music, anything you’d love to see"></textarea></label>
     <button type="submit">Count me in!</button>
@@ -574,16 +567,15 @@ document.querySelectorAll('a[href="#rsvp"]').forEach(a=>a.onclick=e=>{e.preventD
 $('f').onsubmit=async e=>{
   e.preventDefault();
   const d=new FormData(e.target);
-  const n=(d.get('n')||'').trim(), rr=(d.get('r')||'').trim();
-  const r=String(parseInt(rr,10)||rr||'01').padStart(2,'0');
+  const n=(d.get('n')||'').trim();
+  if(!n){toast('Please enter your name');return}
   const att=d.get('a')||'Definitely coming!';
   const data = {
     type: 'rsvp',
     timestamp: new Date().toISOString(),
     name: n,
-    roll: r,
     phone: d.get('p')||'',
-    guests: d.get('g')||'0',
+    guests: d.get('g')||'1',
     attendance: att,
     suggestions: d.get('sg')||''
   };
@@ -592,8 +584,8 @@ $('f').onsubmit=async e=>{
 
   // Update local register so attendee appears on the attendance roll
   const isComing = att.toLowerCase().includes('coming') || att.toLowerCase().includes('present');
-  let i=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(n.toLowerCase())));
-  if(i<0){reg.push({n:esc(n),r:esc(r),x:1});i=reg.length-1}
+  let i=reg.findIndex(x=>x.n.toLowerCase()===n.toLowerCase());
+  if(i<0){reg.push({n:esc(n),x:1});i=reg.length-1}
   st[key(reg[i])]=isComing?'y':'n';
   save();
   me=i;
@@ -622,10 +614,11 @@ if($('rg'))$('rg').oninput=e=>{const v=e.target.value;if($('then'))$('then').sty
 const caps=['Same people, different responsibilities.','From bunking lectures to managing life!','From college uniforms to corporate outfits.','Some things changed. Our friendship didn’t.'];let ci=0;setInterval(()=>{const el=$('cap');if(el)el.textContent=caps[++ci%4]},3500);
 let me=null;
 let reg=[],st={},cur=null;
-const key=x=>x.r+'|'+x.n,esc=t=>t.replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const key=x=>x.n.toLowerCase(),esc=t=>t.replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 try{
-  st=JSON.parse(localStorage.getItem('att')||'{}');
-  reg=JSON.parse(localStorage.getItem('extra')||'[]');
+  localStorage.removeItem('extra');
+  localStorage.removeItem('att');
+  localStorage.removeItem('me');
 }catch(e){}
 function save(){try{localStorage.setItem('att',JSON.stringify(st));localStorage.setItem('extra',JSON.stringify(reg))}catch(e){}}
 function draw(){
@@ -635,22 +628,21 @@ function draw(){
   $('roll').innerHTML=reg.map((x,i)=>{
     const status=st[key(x)];
     const respBadge=status==='y'?'<span class="roll-resp p">✓ Present</span>':status==='n'?'<span class="roll-resp a">✗ Can’t Make It</span>':'<span class="roll-resp u">Pending</span>';
-    return `<li data-i="${i}" class="${status==='y'?'p':status==='n'?'a':''}${cur===i?' sel':''}${me===i?' me':''}"><b>${x.r}</b><span>${x.n}</span>${respBadge}</li>`;
+    return `<li data-i="${i}" class="${status==='y'?'p':status==='n'?'a':''}${cur===i?' sel':''}${me===i?' me':''}"><b>#${String(i+1).padStart(2,'0')}</b><span>${x.n}</span>${respBadge}</li>`;
   }).join('');
 }
-function pick(i,q){cur=i;const x=reg[i];draw();$('res').hidden=true;$('who').hidden=false;if($('reg-cta'))$('reg-cta').style.display='none';$('wh').textContent='Hello, '+x.n.replace(/&#\d+;/g,'')+'! Roll no. '+x.r;if(!q)$('who').scrollIntoView({behavior:'smooth',block:'center'})}
+function pick(i,q){cur=i;const x=reg[i];draw();$('res').hidden=true;$('who').hidden=false;if($('reg-cta'))$('reg-cta').style.display='none';$('wh').textContent='Hello, '+x.n.replace(/&#\d+;/g,'')+'!';if(!q)$('who').scrollIntoView({behavior:'smooth',block:'center'})}
 function burst(){if(RM)return;const f=$('fx'),c=['#9db8de','#e6b9c4','#c9a45c','#fff','#5b7fb0'];for(let i=0;i<46;i++){const e=document.createElement('i');e.className='pt';e.style.cssText=`left:${Math.random()*100}%;background:${c[i%5]};--x:${Math.random()*120-60}px;animation-duration:${2+Math.random()*2.5}s;animation-iteration-count:1;animation-delay:${Math.random()*.6}s;opacity:.95`;f.appendChild(e);setTimeout(()=>e.remove(),5500)}}
 draw();
 $('roll').onclick=e=>{const l=e.target.closest('li');if(!l)return;const i=+l.dataset.i;if(me!==null&&i!==me){toast('You can only mark your own attendance. No proxy!');return}if(me===null)me=i;pick(i)};
-$('ab').onclick=()=>{if(me!==null){toast('You can only mark your own attendance. No proxy!');return}const n=$('an').value.trim();if(!n){toast('Type your name first');return}const r=$('ar').value.trim()||String(reg.length+1).padStart(2,'0');reg.push({n:esc(n),r:esc(r),x:1});save();me=reg.length-1;pick(me);$('an').value=$('ar').value=''};
+$('ab').onclick=()=>{if(me!==null){toast('You can only mark your own attendance. No proxy!');return}const n=$('an').value.trim();if(!n){toast('Type your name first');return}reg.push({n:esc(n),x:1});save();me=reg.length-1;pick(me);$('an').value=''};
 document.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{const x=reg[cur];if(!x)return;const f=$('f'),res=$('res'),k=b.dataset.k,nm=x.n;
-st[key(x)]=k==='y'?'y':'n';save();draw();f.elements.n.value=nm.replace(/&#\d+;/g,'');f.elements.r.value=x.r.replace(/&#\d+;/g,'');f.elements.a.value=k==='y'?b.textContent:'Can\u2019t make it this time';
+st[key(x)]=k==='y'?'y':'n';save();draw();if(f.elements.n)f.elements.n.value=nm.replace(/&#\d+;/g,'');if(f.elements.a)f.elements.a.value=k==='y'?b.textContent:'Can\u2019t make it this time';
 res.hidden=false;
-if(k==='y'){burst();res.className='res';res.innerHTML=`<div class="idc"><small>Batch of 2017 · Reunion pass</small><div class="idn">${nm}</div><div>Roll no. ${x.r}</div><div class="stampP">PRESENT</div><br><small>Sun, 27 Dec 2026 · 8 AM – 5 PM<br>Jajpur, Odisha</small></div><p>Marked present! Your RSVP form is ready with your name.</p><button id="go" type="button" class="btn" style="box-shadow:0 6px 18px rgba(29,47,79,0.3);font-size:1.05rem;padding:.9rem 2rem">Count me in! · Fill my RSVP</button>`;$('go').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
+if(k==='y'){burst();res.className='res';res.innerHTML=`<div class="idc"><small>Batch of 2017 · Reunion pass</small><div class="idn">${nm}</div><div>Attendee #${String(cur+1).padStart(2,'0')}</div><div class="stampP">PRESENT</div><br><small>Sun, 27 Dec 2026 · 8 AM – 5 PM<br>Jajpur, Odisha</small></div><p>Marked present! Your RSVP form is ready with your name.</p><button id="go" type="button" class="btn" style="box-shadow:0 6px 18px rgba(29,47,79,0.3);font-size:1.05rem;padding:.9rem 2rem">Count me in! · Fill my RSVP</button>`;$('go').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
 else{res.className='res';res.innerHTML=`<div class="sad"><div class="tear">😢</div><h3>We’ll miss you too, ${nm}.</h3><p>The reunion won’t feel the same without you. If plans change, tap Present anytime.</p><button id="tell" type="button" class="btn sec" style="margin-top:.6rem">Update response in RSVP form</button></div>`;$('tell').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
 res.scrollIntoView({behavior:'smooth',block:'center'})});
 
-try{localStorage.removeItem('me')}catch(e){}
 const gnEl=$('gn');if(gnEl)gnEl.value='';
 
 const gfEl=$('gf');
@@ -659,19 +651,11 @@ if(gfEl){
     e.preventDefault();
     const n=$('gn').value.trim();
     if(!n)return;
-    const f1=n.toLowerCase().split(' ')[0];
-    let i=reg.findIndex(x=>(x.n.toLowerCase().includes(f1)||n.toLowerCase().includes(x.n.toLowerCase().split(' ')[0])));
-    const r=i>=0?reg[i].r:String(reg.length+1).padStart(2,'0');
-    if(i<0){reg.push({n:esc(n),r:esc(r),x:1});save();i=reg.length-1}
-    me=i;
     const first=n.split(' ')[0];
     if($('hey'))$('hey').textContent='Hey, '+first+'!';
     if($('tp'))$('tp').textContent='Hi '+first+', enter our memories';
-    if($('mine')){$('mine').hidden=false;$('mine').textContent=first+', this is your seat on the roll';}
-    $('f').elements.n.value=n;$('f').elements.r.value=r;
-    pick(i,true);
-    const addEl=document.querySelector('.add');if(addEl)addEl.style.display='none';
-    const li=$('roll').children[i];if(li)$('roll').scrollTop=Math.max(0,li.offsetTop-50);
+    if($('mine')){$('mine').hidden=false;$('mine').textContent=first+', welcome to the reunion!';}
+    if($('f')&&$('f').elements.n)$('f').elements.n.value=n;
     const gateEl=$('gate');
     if(gateEl){gateEl.classList.add('out');setTimeout(()=>gateEl.remove(),700)}
     tryStartMusic();
