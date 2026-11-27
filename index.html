@@ -427,6 +427,21 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 <script>
 const $=id=>document.getElementById(id),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const EVENT=new Date('2026-12-27T08:00:00+05:30'),VENUE='Jajpur, Odisha, India',WA='919999999999';
+const SHEET_ENDPOINT = window.GOOGLE_SHEET_ENDPOINT || '';
+
+async function recordToSheet(payload){
+  if(!SHEET_ENDPOINT) return;
+  try{
+    await fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+  }catch(err){
+    console.warn('Sheet sync error:', err);
+  }
+}
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 let playing=false,fd;
 function toggle(){const a=$('bgm');if(!a)return;clearInterval(fd);
@@ -477,8 +492,25 @@ function openLink(u){const a=document.createElement('a');a.href=u;a.target='_bla
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){}try{const x=document.createElement('textarea');x.value=t;x.style.cssText='position:fixed;opacity:0;top:0';document.body.appendChild(x);x.select();const ok=document.execCommand('copy');x.remove();return ok}catch(e){return false}}
 $('copy').onclick=async()=>{toast(await copyText($('addr').textContent)?'Address copied':'Copy failed. Select the address manually.')};
 document.querySelectorAll('a[href="#rsvp"]').forEach(a=>a.onclick=e=>{e.preventDefault();$('rsvp').scrollIntoView({behavior:'smooth'})});
-$('f').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target);
-openLink('https://wa.me/'+WA+'?text='+encodeURIComponent(`RSVP: ${d.get('n')} (Roll ${d.get('r')||'n/a'}) – ${d.get('a')}. Guests: ${d.get('g')}. Phone: ${d.get('p')||'n/a'}. Suggestion: ${d.get('sg')||'none'}`),'_blank')};
+$('f').onsubmit=async e=>{
+  e.preventDefault();
+  const d=new FormData(e.target);
+  const data = {
+    type: 'rsvp',
+    timestamp: new Date().toISOString(),
+    name: d.get('n')||'',
+    roll: d.get('r')||'',
+    phone: d.get('p')||'',
+    guests: d.get('g')||'0',
+    attendance: d.get('a')||'',
+    suggestions: d.get('sg')||''
+  };
+  toast('Saving your RSVP to register…');
+  recordToSheet(data);
+  setTimeout(()=>{
+    openLink('https://wa.me/'+WA+'?text='+encodeURIComponent(`RSVP: ${data.name} (Roll ${data.roll||'n/a'}) – ${data.attendance}. Guests: ${data.guests}. Phone: ${data.phone||'n/a'}. Suggestion: ${data.suggestions||'none'}`),'_blank');
+  }, 400);
+};
 $('share').onclick=async()=>{const u=SHARE_URL;try{if(navigator.share){await navigator.share({title:'Batch of 2017 Reunion',url:u});return}}catch(e){if(e&&e.name==='AbortError')return}toast(await copyText(u)?'Link copied':'Copy failed. Link: '+u)};
 
 function car(root){const c=root.querySelector('.track'),n=c.children.length,dots=root.querySelector('.dots');
@@ -535,6 +567,7 @@ $('gf').onsubmit=e=>{e.preventDefault();const n=$('gn').value.trim(),rr=$('gr').
 let i=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(f1)||n.toLowerCase().includes(x.n.toLowerCase().split(' ')[0])));
 if(i<0){reg.push({n:esc(n),r:esc(r),x:1});save();i=reg.length-1}
 me=i;try{localStorage.setItem('me',JSON.stringify({n,r:rr}))}catch(e){}
+recordToSheet({type:'gate_entry', timestamp:new Date().toISOString(), name:n, roll:r});
 const first=n.split(' ')[0];$('hey').textContent='Hey, '+first+'!';$('tp').textContent='Hi '+first+', enter our memories';
 $('mine').hidden=false;$('mine').textContent=first+', this is your seat on the roll';
 $('f').elements.n.value=n;$('f').elements.r.value=r;
