@@ -35,14 +35,12 @@ h1{font-size:clamp(2.3rem,10vw,3.6rem)}h2{font-size:clamp(2rem,8.5vw,3rem)}
 #env.go #seal,#env.go .tap{opacity:0;transform:scale(1.25);pointer-events:none}
 .tap{position:absolute;left:50%;transform:translateX(-50%);top:calc(50% + 78px);text-align:center;font:400 2rem 'Great Vibes',cursive;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.9),0 0 16px rgba(0,0,0,0.7);background:rgba(29,47,79,0.6);backdrop-filter:blur(6px);padding:4px 24px;border-radius:99px;border:1px solid rgba(255,255,255,0.5);transition:opacity .35s;z-index:52;white-space:nowrap}
 #env.go{pointer-events:none}
-100%{opacity:0;transform:scale(1.4) translateY(-18px)}}
 /* stage */
 #stage{opacity:1}
 body.open #stage{opacity:1}
 @keyframes cardIn{from{opacity:1;transform:none}to{opacity:1;transform:none}}
 .scene{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:7rem 1.6rem;overflow:hidden;scroll-snap-align:start;isolation:isolate;--fg:var(--navy);color:var(--fg)}
-.scene::before{content:"";position:absolute;inset:-6%;z-index:-1;background:var(--card) center/cover;background-color:#fff;animation:none}
-@keyframes kb{to{transform:scale(1.1) translate(-1.5%,1%)}}
+.scene::before{display:none!important}
 .in{max-width:420px;width:100%}
 .rv{opacity:0;transform:translateY(32px);filter:blur(4px);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1),filter .75s ease;transition-delay:var(--d,0s)}
 .scene.on .rv{opacity:1;transform:translateY(0);filter:blur(0)}
@@ -168,7 +166,7 @@ form button[type="submit"]:hover{
 a.map{text-decoration:none}
 .farewell-scene{position:relative;overflow:hidden;color:#ffffff;padding-bottom:5rem;background:#050a14 !important}
 .farewell-scene::before,.farewell-scene::after{display:none !important}
-.farewell-bg{position:absolute;inset:0;background-image:var(--img-farewell);background-size:cover;background-position:center;z-index:0;opacity:.85}
+.farewell-bg{position:absolute;inset:0;background-image:var(--img-farewell);background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;opacity:.85;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;pointer-events:none}
 .farewell-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.88) 100%)}
 .farewell-scene .in{position:relative;z-index:2}
 .farewell-scene h2,.farewell-scene h2 *{color:#ffffff !important;font-size:2.4rem;text-shadow:none !important}
@@ -238,8 +236,8 @@ a.map{text-decoration:none}
 .roll li.me{border:2px solid #a65a6c;background:#fff3f6;animation:glowme 1.6s ease-in-out infinite alternate}
 .roll li.me::before{content:"YOU";position:absolute;left:6px;top:-8px;font-size:.55rem;font-weight:700;background:#a65a6c;color:#fff;padding:0 6px;border-radius:99px}
 @keyframes glowme{from{box-shadow:0 0 0 0 #a65a6c55}to{box-shadow:0 0 14px 3px #a65a6c88}}
-#bg{position:fixed;inset:-3%;z-index:-1;background-image:var(--card);background-position:center;background-size:cover;background-color:#eaf1fa;transition:background-color .8s cubic-bezier(.4,0,.2,1);animation:none}
-@media (min-width:701px){#bg{background-size:auto 100%;background-repeat:no-repeat}}
+#bg{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100lvh;z-index:-1;background-image:var(--card);background-position:center;background-size:cover;background-repeat:no-repeat;background-color:#eaf1fa;transition:background-color .8s cubic-bezier(.4,0,.2,1);transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;pointer-events:none}
+@media (min-width:701px){#bg{background-size:auto 100%;background-repeat:no-repeat;background-position:center}}
 .scene::before{display:none!important}.scene{background:transparent}
 .roll.lock li:not(.me){opacity:.5;cursor:not-allowed}
 @media (prefers-reduced-motion:reduce){#bg{animation:none}}
