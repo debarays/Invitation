@@ -129,8 +129,10 @@ form button[type="submit"]:hover{
 @keyframes fall{to{transform:translate(var(--x),110vh) rotate(540deg)}}
 .bf{position:absolute;font-size:1.6rem;animation:fly 22s linear infinite;left:-10%}
 @keyframes fly{0%{transform:translate(0,60vh) rotate(8deg)}25%{transform:translate(30vw,40vh) rotate(-8deg)}50%{transform:translate(60vw,55vh) rotate(8deg)}100%{transform:translate(120vw,20vh) rotate(-8deg)}}
-#music{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:46px;height:46px;padding:0;z-index:45;display:none;background:var(--navy)}
-#music.on{animation:spin 4s linear infinite}@keyframes spin{to{rotate:360deg}}
+#music{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));width:48px;height:48px;border-radius:50%;padding:0;z-index:90;display:flex!important;align-items:center;justify-content:center;background:#1d2f4f;border:2.5px solid #C69624;box-shadow:0 6px 20px rgba(0,0,0,0.4);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background-color .2s;outline:none}
+#music:hover{transform:scale(1.1);background:#15233b}
+#music.playing{border-color:#e0b246;box-shadow:0 0 0 4px rgba(198,150,36,0.35),0 6px 20px rgba(0,0,0,0.45);animation:musicPulse 2s ease-in-out infinite}
+@keyframes musicPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 #toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:.6rem 1.2rem;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:60}#toast.on{opacity:1}
 .hint{display:block;margin-top:1.5rem;font-size:1.6rem}
 @media (prefers-reduced-motion:reduce){.rv,.w{opacity:1;transform:none;filter:none;transition:none}.scene::before,.pol,.map,.pt,.bf{animation:none}body.open #stage{opacity:1;animation:none}#env .p{transition-duration:.1s}}
@@ -235,21 +237,21 @@ a.map{text-decoration:none}
 .stampP{display:inline-block;margin:.4rem 0;color:#2e7d5b;border:3px solid #2e7d5b;padding:0 .6rem;font-weight:700;letter-spacing:.1em;rotate:-6deg;animation:stp .5s .3s both}
 .sad{background:#ffffffcc;border-radius:14px;padding:1rem;margin-top:.8rem}.tear{font-size:3rem;animation:sob 1.2s ease-in-out infinite alternate}@keyframes sob{to{translate:0 6px}}
 #res[hidden],#who[hidden]{display:none}
-#gate{position:fixed;inset:0;z-index:95;display:grid;place-items:center;background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:1rem;transition:opacity .6s ease,visibility .6s ease;overflow-y:auto}
+#gate{position:fixed;inset:0;width:100vw;max-width:100%;height:100vh;height:100dvh;z-index:95;display:flex;justify-content:center;align-items:center;background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:12px;overflow-x:hidden!important;overflow-y:auto;box-sizing:border-box;touch-action:pan-y;overscroll-behavior:contain;transition:opacity .6s ease,visibility .6s ease}
 #gate.out{opacity:0;visibility:hidden;pointer-events:none}
-#gate form#gf{margin:0;padding:0;background:transparent;border:none;box-shadow:none}
-#gate-card{position:relative;width:375px;height:457px;background:#FFFFFF;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.35);animation:pop .45s ease}
-@media (max-width:380px){#gate-card{transform:scale(0.9);transform-origin:center}}
-@media (max-width:340px){#gate-card{transform:scale(0.82);transform-origin:center}}
+#gate form#gf{margin:0;padding:0;background:transparent;border:none;box-shadow:none;width:100%;max-width:375px;display:flex;justify-content:center;align-items:center;overflow-x:hidden!important;box-sizing:border-box}
+#gate-card{position:relative;width:375px;max-width:100%;height:475px;background:#FFFFFF;border-radius:20px;overflow:hidden!important;box-shadow:0 20px 50px rgba(0,0,0,0.35);animation:pop .45s ease;box-sizing:border-box;touch-action:pan-y}
+@media (max-width:385px){#gate-card{transform:scale(0.88);transform-origin:center}}
+@media (max-width:345px){#gate-card{transform:scale(0.8);transform-origin:center}}
 .board-img{position:absolute;width:411.16px;height:307px;left:-19px;top:0;pointer-events:none;object-fit:contain}
 .board-your-name{position:absolute;width:72px;height:19px;left:151px;top:194px;font-family:'Jost',sans-serif;font-style:normal;font-weight:500;font-size:14px;line-height:19px;text-align:center;color:#FFFFFF;pointer-events:none;letter-spacing:0.02em}
 .board-single-input{position:absolute;width:200px;height:30px;left:calc(50% - 100px);top:226px;font-family:'Leckerli One',cursive;font-style:normal;font-weight:400;font-size:20px;line-height:27px;color:#FFFFFF;text-align:center;background:transparent!important;border:none!important;border-bottom:1.5px dashed rgba(255,255,255,0.6)!important;outline:none!important;padding:0!important;box-shadow:none!important;box-sizing:border-box}
 .board-single-input::placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px}
 .board-single-input:focus{border-bottom-color:#ffffff!important}
-.gate-btn-container{display:flex;flex-direction:column;align-items:center;padding:0;gap:16px;position:absolute;width:280px;height:82px;left:47px;top:339px}
-.gate-cta{display:flex;flex-direction:row;justify-content:center;align-items:center;padding:7px 10px;gap:8px;width:280px;height:40px;background:#1d2f4f;border-radius:46px;border:none;color:#FFFFFF;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:600;font-size:14px;line-height:17px;cursor:pointer;box-shadow:0 4px 14px rgba(29,47,79,0.35);transition:transform .2s,background-color .2s}
+.gate-btn-container{display:flex;flex-direction:column;align-items:center;padding:0;gap:12px;position:absolute;width:280px;left:calc(50% - 140px);top:320px}
+.gate-cta{display:flex;flex-direction:row;justify-content:center;align-items:center;padding:14px 10px;gap:8px;width:280px;height:80px;background:#1d2f4f;border-radius:46px;border:none;color:#FFFFFF;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:500;font-size:16px;line-height:20px;cursor:pointer;box-shadow:0 6px 18px rgba(29,47,79,0.35);transition:transform .2s,background-color .2s;box-sizing:border-box}
 .gate-cta:hover{background:#15233b;transform:scale(1.02)}
-.gate-skip{display:inline-flex;flex-direction:row;justify-content:center;align-items:center;padding:4px 8px;gap:6px;width:auto;min-width:max-content;white-space:nowrap;background:transparent;border:none;color:#C69624;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:600;font-size:14px;line-height:18px;cursor:pointer;text-decoration:none}
+.gate-skip{display:inline-flex;flex-direction:row;justify-content:center;align-items:center;padding:4px 8px;gap:6px;width:auto;min-width:max-content;white-space:nowrap;background:transparent;border:none;color:#C69624;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:500;font-size:14px;line-height:18px;cursor:pointer;text-decoration:none}
 .gate-skip span{white-space:nowrap;display:inline-block}
 .gate-skip:hover{opacity:.85}
 .roll{position:relative}
@@ -261,7 +263,7 @@ a.map{text-decoration:none}
 .scene::before{display:none!important}.scene{background:transparent}
 .roll.lock li:not(.me){opacity:.5;cursor:not-allowed}
 @media (prefers-reduced-motion:reduce){#bg{animation:none}}
-#music{display:none!important}.menu li::after{display:none!important}
+.menu li::after{display:none!important}
 .scene::before{filter:blur(9px)}
 .scene::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(#ffffffa6,#ffffffc2)}
 .mapf{display:block;text-decoration:none;width:100%;max-width:460px;margin:1rem auto;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px #1d2f4f33;border:1px solid #1d2f4f22;background:#fff}
@@ -450,7 +452,18 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 </main>
 <div id="lb" hidden><div class="im lbi"></div><p id="lbc"></p><button id="lbx">Close</button></div>
 
-<button id="music" aria-label="Toggle music">♪</button><div id="toast" role="status"></div>
+<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
+
+<button id="music" aria-label="Toggle music" title="Play / Pause Music">
+  <svg id="music-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C69624" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="6 4 19 12 6 20 6 4" fill="#C69624"></polygon>
+  </svg>
+  <svg id="music-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C69624" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+    <rect x="6" y="4" width="4" height="16" fill="#C69624"></rect>
+    <rect x="14" y="4" width="4" height="16" fill="#C69624"></rect>
+  </svg>
+</button>
+<div id="toast" role="status"></div>
 <script>
 const $=id=>document.getElementById(id),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const EVENT=new Date('2026-12-27T08:00:00+05:30'),VENUE='Jajpur, Odisha, India',WA='919999999999';
@@ -471,9 +484,40 @@ async function recordToSheet(payload){
 }
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 let playing=false,fd;
-function toggle(){const a=$('bgm');if(!a)return;clearInterval(fd);
-if(playing){a.pause();playing=false}else{a.volume=0;a.play().catch(()=>toast('Tap the music button to play'));playing=true;fd=setInterval(()=>{a.volume=Math.min(.7,a.volume+.05);if(a.volume>=.7)clearInterval(fd)},150)}
-$('music').classList.toggle('on',playing)}
+function updateMusicUI(isPlaying){
+  const btn=$('music');
+  const playIcon=$('music-icon-play');
+  const pauseIcon=$('music-icon-pause');
+  if(btn) btn.classList.toggle('playing', isPlaying);
+  if(playIcon) playIcon.style.display = isPlaying ? 'none' : 'block';
+  if(pauseIcon) pauseIcon.style.display = isPlaying ? 'block' : 'none';
+}
+function toggle(){
+  const a=$('bgm');
+  if(!a)return;
+  clearInterval(fd);
+  if(playing){
+    a.pause();
+    playing=false;
+    updateMusicUI(false);
+  } else {
+    a.volume=0;
+    a.play().then(()=>{
+      playing=true;
+      updateMusicUI(true);
+      fd=setInterval(()=>{
+        a.volume=Math.min(0.75, a.volume+0.05);
+        if(a.volume>=0.75) clearInterval(fd);
+      },150);
+    }).catch(err=>{
+      console.log('Audio play prevented:', err);
+      toast('Tap player icon to play music');
+    });
+  }
+}
+function tryStartMusic(){
+  if(!playing) toggle();
+}
 $('music').onclick=toggle;
 /* split headings into typed letters with bottom-to-top stagger */
 document.querySelectorAll('.split').forEach(h=>{
@@ -491,7 +535,7 @@ for(let i=0;i<16;i++){const p=document.createElement('i');p.className='pt';p.sty
 /* open envelope */
 $('env').onclick=()=>{if($('env').classList.contains('go'))return;
 document.body.classList.add('open');scrollTo(0,0);startScenes();
-$('env').classList.add('go');$('music').style.display='block';toggle();
+$('env').classList.add('go');tryStartMusic();
 setTimeout(()=>$('env').remove(),1600)};
 function startScenes(){
   const bgEl=$('bg');
@@ -622,6 +666,7 @@ if(gfEl){
     const li=$('roll').children[i];if(li)$('roll').scrollTop=Math.max(0,li.offsetTop-50);
     const gateEl=$('gate');
     if(gateEl){gateEl.classList.add('out');setTimeout(()=>gateEl.remove(),700)}
+    tryStartMusic();
   };
 }
 const gsEl=$('gs');
@@ -629,6 +674,7 @@ if(gsEl){
   gsEl.onclick=()=>{
     const gateEl=$('gate');
     if(gateEl){gateEl.classList.add('out');setTimeout(()=>gateEl.remove(),700)}
+    tryStartMusic();
   };
 }
 </script></body></html>
