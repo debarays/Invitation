@@ -240,7 +240,7 @@ a.map{text-decoration:none}
 #gate{position:fixed;inset:0;width:100vw;max-width:100%;height:100vh;height:100dvh;z-index:95;display:flex;justify-content:center;align-items:center;background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:12px;overflow-x:hidden!important;overflow-y:auto;box-sizing:border-box;touch-action:pan-y;overscroll-behavior:contain;transition:opacity .6s ease,visibility .6s ease}
 #gate.out{opacity:0;visibility:hidden;pointer-events:none}
 #gate form#gf{margin:0;padding:0;background:transparent;border:none;box-shadow:none;width:100%;max-width:375px;display:flex;justify-content:center;align-items:center;overflow-x:hidden!important;box-sizing:border-box}
-#gate-card{position:relative;width:375px;max-width:100%;height:475px;background:#FFFFFF;border-radius:20px;overflow:hidden!important;box-shadow:0 20px 50px rgba(0,0,0,0.35);animation:pop .45s ease;box-sizing:border-box;touch-action:pan-y}
+#gate-card{position:relative;width:375px;max-width:100%;height:485px;background:#FFFFFF;border-radius:20px;overflow:hidden!important;box-shadow:0 20px 50px rgba(0,0,0,0.35);animation:pop .45s ease;box-sizing:border-box;touch-action:pan-y}
 @media (max-width:385px){#gate-card{transform:scale(0.88);transform-origin:center}}
 @media (max-width:345px){#gate-card{transform:scale(0.8);transform-origin:center}}
 .board-img{position:absolute;width:411.16px;height:307px;left:-19px;top:0;pointer-events:none;object-fit:contain}
@@ -248,12 +248,14 @@ a.map{text-decoration:none}
 .board-single-input{position:absolute;width:200px;height:30px;left:calc(50% - 100px);top:226px;font-family:'Leckerli One',cursive;font-style:normal;font-weight:400;font-size:20px;line-height:27px;color:#FFFFFF;text-align:center;background:transparent!important;border:none!important;border-bottom:1.5px dashed rgba(255,255,255,0.6)!important;outline:none!important;padding:0!important;box-shadow:none!important;box-sizing:border-box}
 .board-single-input::placeholder{color:rgba(255,255,255,0.6);font-family:'Leckerli One',cursive;font-size:18px}
 .board-single-input:focus{border-bottom-color:#ffffff!important}
-.gate-btn-container{display:flex;flex-direction:column;align-items:center;padding:0;gap:12px;position:absolute;width:280px;left:calc(50% - 140px);top:320px}
+.gate-btn-container{display:flex;flex-direction:column;align-items:center;padding:0;gap:8px;position:absolute;width:280px;left:calc(50% - 140px);top:318px}
 .gate-cta{display:flex;flex-direction:row;justify-content:center;align-items:center;padding:14px 10px;gap:8px;width:280px;height:80px;background:#1d2f4f;border-radius:46px;border:none;color:#FFFFFF;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:500;font-size:16px;line-height:20px;cursor:pointer;box-shadow:0 6px 18px rgba(29,47,79,0.35);transition:transform .2s,background-color .2s;box-sizing:border-box}
 .gate-cta:hover{background:#15233b;transform:scale(1.02)}
 .gate-skip{display:inline-flex;flex-direction:row;justify-content:center;align-items:center;padding:4px 8px;gap:6px;width:auto;min-width:max-content;white-space:nowrap;background:transparent;border:none;color:#C69624;font-family:'Lato','Jost',sans-serif;font-style:normal;font-weight:500;font-size:14px;line-height:18px;cursor:pointer;text-decoration:none}
 .gate-skip span{white-space:nowrap;display:inline-block}
 .gate-skip:hover{opacity:.85}
+.gate-credit{font-family:'Caveat','Jost',cursive,sans-serif;font-size:14px;color:#64748b;letter-spacing:0.02em;margin-top:2px;text-align:center;white-space:nowrap;user-select:none}
+.door-credit{position:absolute;bottom:calc(2rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-family:'Caveat','Jost',cursive,sans-serif;font-size:1.15rem;color:#fdf6ec;text-shadow:0 2px 8px rgba(0,0,0,0.6);z-index:10;white-space:nowrap;pointer-events:none}
 .roll{position:relative}
 .roll li.me{border:2px solid #a65a6c;background:#fff3f6;animation:glowme 1.6s ease-in-out infinite alternate}
 .roll li.me::before{content:"YOU";position:absolute;left:6px;top:-8px;font-size:.55rem;font-weight:700;background:#a65a6c;color:#fff;padding:0 6px;border-radius:99px}
@@ -292,13 +294,14 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
         <span>Skip for now</span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C69624" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </button>
+      <div class="gate-credit">✨ Made with ❤️ by Debasish ✨</div>
     </div>
   </div>
 </form></div>
 
 <div id="env"><div class="p l"><i></i><div class="door-handle"></div></div><div class="p r"><i></i><div class="door-handle"></div></div>
 <button id="seal" aria-label="Open the door"></button><div class="tap" id="tp">Enter our memories</div>
-
+<div class="door-credit">✨ Made with ❤️ by Debasish ✨</div>
 </div>
 
 <main id="stage">
@@ -307,13 +310,14 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   <h1 class="split">Batch of 2017: The Reunion</h1>
   <p class="rv" style="--d:.5s">N.C. College<br>Department of BCA</p>
   <p class="script rv" style="--d:.7s">Some friendships deserve a reunion, not just a WhatsApp group!</p>
+  <p class="rv" style="--d:.85s;font-size:0.95rem;margin-top:1.2rem;color:var(--navy);font-weight:500;letter-spacing:0.02em">✨ Made with ❤️ by Debasish ✨</p>
   <span class="hint rv" style="--d:1s">⌄</span>
 </div></section>
 
 </div>
 
 <section class="scene s2" data-bg="#fdf6ec" data-fg="#2a2826"><div class="in">
-  <div class="logo" role="img" aria-label="College logo (sample)"></div>
+  <div class="logo" role="img" aria-label="Narasingh Choudhuri Autonomous College Logo" style="background-image:url('college_logo.png');background-size:cover;background-position:center;width:120px;height:120px;border-radius:50%;border:3px solid #C69624;box-shadow:0 8px 24px rgba(29,47,79,0.25);margin:0 auto 1rem"></div>
   <p class="note rv">N.C. College · Dept. of BCA · Batch 2017</p>
   <h2 class="split">The wait is finally over!</h2>
   <p class="rv" style="--d:.4s">From sharing classroom benches to bunking lectures, from canteen conversations to unforgettable trips, we have created memories that stay forever. Life took us in different directions, but it’s time to bring everyone back together. Let’s reunite, relive those crazy moments and create new ones!</p>
@@ -384,6 +388,10 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
     <figure class="gs"><div class="im" role="img" aria-label="Bunking lectures together" style="background-image:url(photo4.jpg);background-size:cover;background-position:center"></div><figcaption>Bunking lectures together</figcaption></figure>
     <figure class="gs"><div class="im" role="img" aria-label="Department memories" style="background-image:url(photo5.jpg);background-size:cover;background-position:center"></div><figcaption>Department corridors &amp; smiles</figcaption></figure>
     <figure class="gs"><div class="im" role="img" aria-label="Brotherhood and memories" style="background-image:url(photo6.jpg);background-size:cover;background-position:center"></div><figcaption>Friends for a lifetime</figcaption></figure>
+    <figure class="gs"><div class="im" role="img" aria-label="One last group photo before everyone went their own way" style="background-image:url(photo7.jpg);background-size:cover;background-position:center"></div><figcaption>One last group photo before everyone went their own way</figcaption></figure>
+    <figure class="gs"><div class="im" role="img" aria-label="Pink shirts, one last day together" style="background-image:url(photo8.jpg);background-size:cover;background-position:center"></div><figcaption>Pink shirts, one last day together</figcaption></figure>
+    <figure class="gs"><div class="im" role="img" aria-label="Road trips and wild selfies" style="background-image:url(photo9.jpg);background-size:cover;background-position:center"></div><figcaption>Road trips and wild selfies</figcaption></figure>
+    <figure class="gs"><div class="im" role="img" aria-label="Winter campus memories" style="background-image:url(photo10.jpg);background-size:cover;background-position:center"></div><figcaption>Winter campus memories</figcaption></figure>
   </div><button class="pv" aria-label="Previous">‹</button><button class="nx" aria-label="Next">›</button><div class="dots"></div></div>
 </div></section>
 
