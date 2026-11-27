@@ -427,7 +427,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 <script>
 const $=id=>document.getElementById(id),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const EVENT=new Date('2026-12-27T08:00:00+05:30'),VENUE='Jajpur, Odisha, India',WA='919999999999';
-const SHEET_ENDPOINT = window.GOOGLE_SHEET_ENDPOINT || '';
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw9HHBWduyxxouqNKnPl2_qOsEhK3DnfK0TXuiqxjP7uxRRUekhNsgg2c5ImrXxopZsWQ/exec';
 
 async function recordToSheet(payload){
   if(!SHEET_ENDPOINT) return;
