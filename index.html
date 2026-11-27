@@ -232,6 +232,10 @@ a.map{text-decoration:none}
 .stampP{display:inline-block;margin:.4rem 0;color:#2e7d5b;border:3px solid #2e7d5b;padding:0 .6rem;font-weight:700;letter-spacing:.1em;rotate:-6deg;animation:stp .5s .3s both}
 .sad{background:#ffffffcc;border-radius:14px;padding:1rem;margin-top:.8rem}.tear{font-size:3rem;animation:sob 1.2s ease-in-out infinite alternate}@keyframes sob{to{translate:0 6px}}
 #res[hidden],#who[hidden]{display:none}
+#gate{position:fixed;inset:0;z-index:95;display:grid;place-items:center;background:radial-gradient(circle at center,rgba(29,47,79,0.7),rgba(15,23,42,0.92));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:1.2rem;transition:opacity .6s ease,visibility .6s ease}
+#gate.out{opacity:0;visibility:hidden;pointer-events:none}
+#gate form{background:#fffffff5;border-radius:20px;padding:1.6rem 1.4rem;max-width:340px;width:100%;display:grid;gap:.8rem;text-align:left;box-shadow:0 18px 45px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.8);animation:pop .45s ease}
+.ghost{background:transparent!important;color:var(--navy)!important;text-decoration:underline;padding:.4rem!important;border:none!important;cursor:pointer;font:500 .92rem Jost,sans-serif;box-shadow:none!important;text-align:center}
 .roll{position:relative}
 .roll li.me{border:2px solid #a65a6c;background:#fff3f6;animation:glowme 1.6s ease-in-out infinite alternate}
 .roll li.me::before{content:"YOU";position:absolute;left:6px;top:-8px;font-size:.55rem;font-weight:700;background:#a65a6c;color:#fff;padding:0 6px;border-radius:99px}
@@ -255,6 +259,11 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 <div id="bg"></div>
 
 <div id="fx" aria-hidden="true"></div>
+
+<div id="gate"><form id="gf"><div class="script" style="font-size:1.8rem;margin-bottom:.2rem">Attendance, please!</div><p style="margin:0 0 .4rem;font-size:.95rem;color:#475569">Tell us who is opening this invitation.</p>
+<label>Your name<input id="gn" required maxlength="40" autocomplete="name" placeholder="Full name"></label>
+<label>Roll number<input id="gr" maxlength="10" placeholder="e.g. 03 (optional)"></label>
+<button type="submit">Continue</button><button type="button" id="gs" class="ghost">Skip for now</button></form></div>
 
 <div id="env"><div class="p l"><i></i><div class="door-handle"></div></div><div class="p r"><i></i><div class="door-handle"></div></div>
 <button id="seal" aria-label="Open the door"></button><div class="tap" id="tp">Enter our memories</div>
@@ -360,6 +369,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
   <div id="who" class="who" hidden><p class="script" id="wh"></p><p>Are you coming to the reunion?</p>
     <div class="row"><button class="ans" data-k="y">Present!</button><button class="ans" data-k="y">Definitely coming!</button><button class="ans" data-k="m">Missing you all!</button><button class="ans" data-k="n">Can’t make it this time</button></div></div>
   <div id="res" hidden></div>
+  <div id="reg-cta" style="margin-top:1.2rem;text-align:center"><p style="font-size:.9rem;color:#64748b;margin:0 0 .5rem">Tap your name on the register above, or confirm your RSVP below:</p><a href="#rsvp" class="btn" style="font-size:.95rem;padding:.7rem 1.8rem;text-decoration:none">Confirm your RSVP ↓</a></div>
 </div></section>
 
 <section class="scene dk" data-bg="#1d2b44" data-fg="#f0f4f8"><span class="mn" style="left:12%">♪</span><span class="mn" style="left:80%;animation-delay:-3s">♫</span><div class="in">
@@ -541,7 +551,7 @@ function draw(){
     return `<li data-i="${i}" class="${status==='y'?'p':status==='n'?'a':''}${cur===i?' sel':''}${me===i?' me':''}"><b>${x.r}</b><span>${x.n}</span>${respBadge}</li>`;
   }).join('');
 }
-function pick(i,q){cur=i;const x=reg[i];draw();$('res').hidden=true;$('who').hidden=false;$('wh').textContent='Hello, '+x.n.replace(/&#\d+;/g,'')+'! Roll no. '+x.r;if(!q)$('who').scrollIntoView({behavior:'smooth',block:'center'})}
+function pick(i,q){cur=i;const x=reg[i];draw();$('res').hidden=true;$('who').hidden=false;if($('reg-cta'))$('reg-cta').style.display='none';$('wh').textContent='Hello, '+x.n.replace(/&#\d+;/g,'')+'! Roll no. '+x.r;if(!q)$('who').scrollIntoView({behavior:'smooth',block:'center'})}
 function burst(){if(RM)return;const f=$('fx'),c=['#9db8de','#e6b9c4','#c9a45c','#fff','#5b7fb0'];for(let i=0;i<46;i++){const e=document.createElement('i');e.className='pt';e.style.cssText=`left:${Math.random()*100}%;background:${c[i%5]};--x:${Math.random()*120-60}px;animation-duration:${2+Math.random()*2.5}s;animation-iteration-count:1;animation-delay:${Math.random()*.6}s;opacity:.95`;f.appendChild(e);setTimeout(()=>e.remove(),5500)}}
 draw();
 $('roll').onclick=e=>{const l=e.target.closest('li');if(!l)return;const i=+l.dataset.i;if(me!==null&&i!==me){toast('You can only mark your own attendance. No proxy!');return}if(me===null)me=i;pick(i)};
@@ -549,23 +559,59 @@ $('ab').onclick=()=>{if(me!==null){toast('You can only mark your own attendance.
 document.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{const x=reg[cur];if(!x)return;const f=$('f'),res=$('res'),k=b.dataset.k,nm=x.n;
 st[key(x)]=k==='y'?'y':'n';save();draw();f.elements.n.value=nm.replace(/&#\d+;/g,'');f.elements.r.value=x.r.replace(/&#\d+;/g,'');f.elements.a.value=k==='y'?b.textContent:'Can\u2019t make it this time';
 res.hidden=false;
-if(k==='y'){burst();res.className='res';res.innerHTML=`<div class="idc"><small>Batch of 2017 · Reunion pass</small><div class="idn">${nm}</div><div>Roll no. ${x.r}</div><div class="stampP">PRESENT</div><br><small>Sun, 27 Dec 2026 · 8 AM – 5 PM<br>Jajpur, Odisha</small></div><p>Marked present! Your RSVP form is ready with your name.</p><button id="go" type="button">Fill my RSVP</button>`;$('go').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
-else{res.className='res';res.innerHTML=`<div class="sad"><div class="tear">😢</div><h3>We’ll miss you too, ${nm}.</h3><p>The reunion won’t feel the same without you. If plans change, tap Present anytime.</p><button id="tell" type="button">Tell the organisers</button></div>`;$('tell').onclick=()=>openLink('https://wa.me/'+WA+'?text='+encodeURIComponent('Reunion: '+nm.replace(/&#\d+;/g,'')+' (Roll '+x.r+') – '+b.textContent),'_blank')}
+if(k==='y'){burst();res.className='res';res.innerHTML=`<div class="idc"><small>Batch of 2017 · Reunion pass</small><div class="idn">${nm}</div><div>Roll no. ${x.r}</div><div class="stampP">PRESENT</div><br><small>Sun, 27 Dec 2026 · 8 AM – 5 PM<br>Jajpur, Odisha</small></div><p>Marked present! Your RSVP form is ready with your name.</p><button id="go" type="button" class="btn" style="box-shadow:0 6px 18px rgba(29,47,79,0.3);font-size:1.05rem;padding:.9rem 2rem">Count me in! · Fill my RSVP</button>`;$('go').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
+else{res.className='res';res.innerHTML=`<div class="sad"><div class="tear">😢</div><h3>We’ll miss you too, ${nm}.</h3><p>The reunion won’t feel the same without you. If plans change, tap Present anytime.</p><button id="tell" type="button" class="btn sec" style="margin-top:.6rem">Update response in RSVP form</button></div>`;$('tell').onclick=()=>$('rsvp').scrollIntoView({behavior:'smooth'})}
 res.scrollIntoView({behavior:'smooth',block:'center'})});
 
 try{
   const m=JSON.parse(localStorage.getItem('me')||'null');
   if(m){
-    $('gn').value=m.n;$('gr').value=m.r;
+    const gnEl=$('gn');if(gnEl)gnEl.value=m.n;
+    const grEl=$('gr');if(grEl)grEl.value=m.r;
     const r=String(parseInt(m.r,10)||m.r||'01').padStart(2,'0'),f1=m.n.toLowerCase().split(' ')[0];
     const idx=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(f1)||m.n.toLowerCase().includes(x.n.toLowerCase().split(' ')[0])));
     if(idx>=0){me=idx;}
   }
 }catch(e){}
+
+const gfEl=$('gf');
+if(gfEl){
+  gfEl.onsubmit=e=>{
+    e.preventDefault();
+    const n=$('gn').value.trim(),rr=$('gr').value.trim(),r=String(parseInt(rr,10)||rr||'01').padStart(2,'0'),f1=n.toLowerCase().split(' ')[0];
+    let i=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(f1)||n.toLowerCase().includes(x.n.toLowerCase().split(' ')[0])));
+    if(i<0){reg.push({n:esc(n),r:esc(r),x:1});save();i=reg.length-1}
+    me=i;try{localStorage.setItem('me',JSON.stringify({n,r:rr}))}catch(err){}
+    const first=n.split(' ')[0];
+    if($('hey'))$('hey').textContent='Hey, '+first+'!';
+    if($('tp'))$('tp').textContent='Hi '+first+', enter our memories';
+    if($('mine')){$('mine').hidden=false;$('mine').textContent=first+', this is your seat on the roll';}
+    $('f').elements.n.value=n;$('f').elements.r.value=r;
+    pick(i,true);
+    const addEl=document.querySelector('.add');if(addEl)addEl.style.display='none';
+    const li=$('roll').children[i];if(li)$('roll').scrollTop=Math.max(0,li.offsetTop-50);
+    const gateEl=$('gate');
+    if(gateEl){gateEl.classList.add('out');setTimeout(()=>gateEl.remove(),700)}
+  };
+}
+const gsEl=$('gs');
+if(gsEl){
+  gsEl.onclick=()=>{
+    const gateEl=$('gate');
+    if(gateEl){gateEl.classList.add('out');setTimeout(()=>gateEl.remove(),700)}
+  };
+}
+
 // Auto prefill form if attendee returned
 if(me!==null&&reg[me]){
-  const u=reg[me];
-  $('f').elements.n.value=u.n;
-  $('f').elements.r.value=u.r;
+  const u=reg[me],first=u.n.replace(/&#\d+;/g,'').split(' ')[0];
+  if($('hey'))$('hey').textContent='Hey, '+first+'!';
+  if($('tp'))$('tp').textContent='Hi '+first+', enter our memories';
+  if($('mine')){$('mine').hidden=false;$('mine').textContent=first+', this is your seat on the roll';}
+  $('f').elements.n.value=u.n.replace(/&#\d+;/g,'');
+  $('f').elements.r.value=u.r.replace(/&#\d+;/g,'');
+  pick(me,true);
+  const addEl=document.querySelector('.add');if(addEl)addEl.style.display='none';
+  const gateEl=$('gate');if(gateEl)gateEl.remove();
 }
 </script></body></html>
