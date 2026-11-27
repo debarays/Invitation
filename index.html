@@ -437,6 +437,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
     <label>Phone (optional)<input name="p" type="tel"></label>
     <label>Guests<select name="g"><option>0</option><option selected>1</option><option>2</option><option>3</option></select></label>
     <label>Attendance<select name="a"><option>Definitely coming!</option><option>Present!</option><option>Can’t make it this time</option></select></label>
+    <label>Suggested date (optional)<input name="sdate" type="date"></label>
     <label>Suggestions (optional)<textarea name="sg" rows="3" maxlength="300" placeholder="Food, games, music, anything you’d love to see"></textarea></label>
     <button type="submit">Count me in!</button>
   </form>
@@ -570,6 +571,9 @@ $('f').onsubmit=async e=>{
   const n=(d.get('n')||'').trim();
   if(!n){toast('Please enter your name');return}
   const att=d.get('a')||'Definitely coming!';
+  const sdate=(d.get('sdate')||'').trim();
+  const sg=(d.get('sg')||'').trim();
+  const fullSg=sdate?(sg?`[Suggested Date: ${sdate}] ${sg}`:`[Suggested Date: ${sdate}]`):sg;
   const data = {
     type: 'rsvp',
     timestamp: new Date().toISOString(),
@@ -577,7 +581,8 @@ $('f').onsubmit=async e=>{
     phone: d.get('p')||'',
     guests: d.get('g')||'1',
     attendance: att,
-    suggestions: d.get('sg')||''
+    suggested_date: sdate,
+    suggestions: fullSg
   };
   toast('Saving your attendance…');
   recordToSheet(data);
