@@ -9,7 +9,7 @@
 html{scroll-snap-type:y proximity;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;font:400 1rem/1.65 Jost,system-ui,sans-serif;background:#eaf1fa;color:var(--navy);overflow-x:hidden;transition:background-color .8s cubic-bezier(.4,0,.2,1)}
 body:not(.open){overflow:hidden;height:100svh}
-h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1.1;margin:0 0 .6rem}
+h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1;margin:0 0 .6rem}
 h1{font-size:clamp(2.3rem,10vw,3.6rem)}h2{font-size:clamp(2rem,8.5vw,3rem)}
 .script{font:400 clamp(1.7rem,7vw,2.4rem)/1.2 'Great Vibes',cursive;color:var(--ac)}
 .note{font-size:.8rem;opacity:.7}
@@ -72,7 +72,7 @@ button:active,.btn:active{transform:scale(.95)}
 .map{height:130px;border-radius:14px;background:repeating-linear-gradient(45deg,#dce6f3 0 12px,#eaf1fa 12px 24px);display:grid;place-items:center;font-size:2.4rem;margin:1rem 0;animation:bob 2s ease-in-out infinite alternate}
 @keyframes bob{to{translate:0 -6px}}
 form{display:grid;gap:1.15rem;text-align:left;width:100%}
-label{display:flex;flex-direction:column;gap:.45rem;font-size:.95rem;font-weight:500;color:#1e293b}
+label{display:flex;flex-direction:column;gap:.45rem;font-size:.92rem;font-weight:500;color:#334155}
 input,select,textarea{
   width:100%;
   box-sizing:border-box;
@@ -80,7 +80,7 @@ input,select,textarea{
   padding:0 1.1rem;
   border:1.5px solid #cbd5e1;
   border-radius:14px;
-  font:400 1rem/1.5 'Jost',system-ui,sans-serif;
+  font:500 .95rem/1.5 'Jost',system-ui,sans-serif;
   background:#ffffff;
   color:#0f172a;
   box-shadow:0 1px 3px rgba(0,0,0,0.04);
@@ -111,28 +111,18 @@ textarea{
 }
 form button[type="submit"]{
   margin-top:.4rem;
-  height:54px;
-  font-size:1.05rem;
-  font-weight:600;
-  border-radius:16px;
+  height:52px;
+  font-size:1rem;
+  font-weight:550;
+  border-radius:14px;
   background:#1d2f4f;
-  box-shadow:0 6px 18px rgba(29,47,79,0.3);
+  box-shadow:0 4px 14px rgba(29,47,79,0.25);
   transition:transform .2s,box-shadow .2s,background-color .2s;
 }
 form button[type="submit"]:hover{
   background:#142239;
   box-shadow:0 8px 22px rgba(29,47,79,0.4);
 }
-#gate form{
-  background:#fffffff8;
-  border-radius:22px;
-  padding:1.8rem 1.5rem;
-  max-width:360px;
-  width:100%;
-  box-shadow:0 20px 45px rgba(0,0,0,0.25);
-  border:1px solid rgba(255,255,255,0.8);
-}
-100%{opacity:0;transform:scale(1.4) translateY(-10px)}}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}
 .pt{position:absolute;top:-30px;width:12px;height:16px;border-radius:80% 0 80% 0;opacity:.75;animation:fall linear infinite}
 @keyframes fall{to{transform:translate(var(--x),110vh) rotate(540deg)}}
@@ -177,13 +167,13 @@ form button[type="submit"]:hover{
 .mn{position:absolute;bottom:-2rem;font-size:2rem;color:#e0c07a;animation:up 7s linear infinite;z-index:1}@keyframes up{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
 a.map{text-decoration:none}
 .farewell-scene{position:relative;overflow:hidden;color:#ffffff;padding-bottom:5rem;background:#050a14 !important}
-.farewell-scene::before{display:none !important}
+.farewell-scene::before,.farewell-scene::after{display:none !important}
 .farewell-bg{position:absolute;inset:0;background-image:var(--img-farewell);background-size:cover;background-position:center;z-index:0;opacity:.85}
 .farewell-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.88) 100%)}
 .farewell-scene .in{position:relative;z-index:2}
-.farewell-scene h2{color:#ffffff;font-size:2.4rem;text-shadow:none !important}
-.farewell-scene p{color:#f1f5f9;font-weight:400;text-shadow:none !important}
-.farewell-scene .script{color:#fde047;font-size:1.8rem;text-shadow:none !important}
+.farewell-scene h2,.farewell-scene h2 *{color:#ffffff !important;font-size:2.4rem;text-shadow:none !important}
+.farewell-scene p,.farewell-scene p *{color:#f1f5f9 !important;font-weight:400;text-shadow:none !important}
+.farewell-scene .script{color:#fde047 !important;font-size:1.8rem;text-shadow:none !important}
 .farewell-scene button{background:#eab308;color:#0f172a;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,0.4);border:none;text-shadow:none !important}
 .collage{position:absolute;inset:0;z-index:-1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);opacity:.22}
 .collage i{border:3px solid #ffffff55}
@@ -244,10 +234,6 @@ a.map{text-decoration:none}
 .stampP{display:inline-block;margin:.4rem 0;color:#2e7d5b;border:3px solid #2e7d5b;padding:0 .6rem;font-weight:700;letter-spacing:.1em;rotate:-6deg;animation:stp .5s .3s both}
 .sad{background:#ffffffcc;border-radius:14px;padding:1rem;margin-top:.8rem}.tear{font-size:3rem;animation:sob 1.2s ease-in-out infinite alternate}@keyframes sob{to{translate:0 6px}}
 #res[hidden],#who[hidden]{display:none}
-#gate{position:fixed;inset:0;z-index:55;display:grid;place-items:center;background:#1d2f4f66;backdrop-filter:blur(3px);padding:1.2rem;transition:opacity .6s}
-#gate.out{opacity:0;pointer-events:none}
-#gate form{background:#fffffff2;border-radius:18px;padding:1.4rem;max-width:340px;width:100%;display:grid;gap:.7rem;text-align:left;box-shadow:0 14px 40px #0004;animation:pop .5s}
-.ghost{background:transparent!important;color:var(--navy)!important;text-decoration:underline;padding:.2rem!important}
 .roll{position:relative}
 .roll li.me{border:2px solid #a65a6c;background:#fff3f6;animation:glowme 1.6s ease-in-out infinite alternate}
 .roll li.me::before{content:"YOU";position:absolute;left:6px;top:-8px;font-size:.55rem;font-weight:700;background:#a65a6c;color:#fff;padding:0 6px;border-radius:99px}
@@ -271,10 +257,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
 <div id="bg"></div>
 
 <div id="fx" aria-hidden="true"></div>
-<div id="gate"><form id="gf"><div class="script">Attendance, please!</div><p style="margin:0">Tell us who is opening this invitation.</p>
-<label>Your name<input id="gn" required maxlength="40" autocomplete="name"></label>
-<label>Roll number<input id="gr" maxlength="10" placeholder="e.g. 3 (optional)"></label>
-<button type="submit">Continue</button><button type="button" id="gs" class="ghost">Skip for now</button></form></div>
+
 <div id="env"><div class="p l"><i></i><div class="door-handle"></div></div><div class="p r"><i></i><div class="door-handle"></div></div>
 <button id="seal" aria-label="Open the door"></button><div class="tap" id="tp">Enter our memories</div>
 
@@ -410,7 +393,7 @@ button.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)
     <label>Suggestions (optional)<textarea name="sg" rows="3" maxlength="300" placeholder="Food, games, music, anything you’d love to see"></textarea></label>
     <button type="submit">Count me in!</button>
   </form>
-  <p class="note">Opens WhatsApp to send your reply to the organiser (sample number).</p>
+
 </div></section>
 
 <section class="scene dk farewell-scene" id="farewell" data-bg="#050a14" data-fg="#ffffff"><div class="farewell-bg" aria-hidden="true"></div><div class="in">
@@ -495,21 +478,39 @@ document.querySelectorAll('a[href="#rsvp"]').forEach(a=>a.onclick=e=>{e.preventD
 $('f').onsubmit=async e=>{
   e.preventDefault();
   const d=new FormData(e.target);
+  const n=(d.get('n')||'').trim(), rr=(d.get('r')||'').trim();
+  const r=String(parseInt(rr,10)||rr||'01').padStart(2,'0');
+  const att=d.get('a')||'Definitely coming!';
   const data = {
     type: 'rsvp',
     timestamp: new Date().toISOString(),
-    name: d.get('n')||'',
-    roll: d.get('r')||'',
+    name: n,
+    roll: r,
     phone: d.get('p')||'',
     guests: d.get('g')||'0',
-    attendance: d.get('a')||'',
+    attendance: att,
     suggestions: d.get('sg')||''
   };
-  toast('Saving your RSVP to register…');
+  toast('Saving your attendance…');
   recordToSheet(data);
-  setTimeout(()=>{
-    openLink('https://wa.me/'+WA+'?text='+encodeURIComponent(`RSVP: ${data.name} (Roll ${data.roll||'n/a'}) – ${data.attendance}. Guests: ${data.guests}. Phone: ${data.phone||'n/a'}. Suggestion: ${data.suggestions||'none'}`),'_blank');
-  }, 400);
+
+  // Update local register so attendee appears on the attendance roll
+  const isComing = att.toLowerCase().includes('coming') || att.toLowerCase().includes('present');
+  let i=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(n.toLowerCase())));
+  if(i<0){reg.push({n:esc(n),r:esc(r),x:1});i=reg.length-1}
+  st[key(reg[i])]=isComing?'y':'n';
+  save();
+  me=i;
+  try{localStorage.setItem('me',JSON.stringify({n,r:rr}))}catch(err){}
+  draw();
+
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if(submitBtn){
+    submitBtn.textContent = '✓ Response Recorded!';
+    submitBtn.style.background = '#15803d';
+    submitBtn.disabled = true;
+  }
+  toast('Thank you! Your response is recorded.');
 };
 $('share').onclick=async()=>{const u=SHARE_URL;try{if(navigator.share){await navigator.share({title:'Batch of 2017 Reunion',url:u});return}}catch(e){if(e&&e.name==='AbortError')return}toast(await copyText(u)?'Link copied':'Copy failed. Link: '+u)};
 
@@ -563,17 +564,10 @@ try{
     if(idx>=0){me=idx;}
   }
 }catch(e){}
-$('gf').onsubmit=e=>{e.preventDefault();const n=$('gn').value.trim(),rr=$('gr').value.trim(),r=String(parseInt(rr,10)||rr||'01').padStart(2,'0'),f1=n.toLowerCase().split(' ')[0];
-let i=reg.findIndex(x=>(r&&x.r===r)||(x.n.toLowerCase().includes(f1)||n.toLowerCase().includes(x.n.toLowerCase().split(' ')[0])));
-if(i<0){reg.push({n:esc(n),r:esc(r),x:1});save();i=reg.length-1}
-me=i;try{localStorage.setItem('me',JSON.stringify({n,r:rr}))}catch(e){}
-recordToSheet({type:'gate_entry', timestamp:new Date().toISOString(), name:n, roll:r});
-const first=n.split(' ')[0];$('hey').textContent='Hey, '+first+'!';$('tp').textContent='Hi '+first+', enter our memories';
-$('mine').hidden=false;$('mine').textContent=first+', this is your seat on the roll';
-$('f').elements.n.value=n;$('f').elements.r.value=r;
-pick(i,true);
-const addEl=document.querySelector('.add');if(addEl)addEl.style.display='none';
-const li=$('roll').children[i];if(li)$('roll').scrollTop=Math.max(0,li.offsetTop-50);
-$('gate').classList.add('out');setTimeout(()=>$('gate').remove(),700)};
-$('gs').onclick=()=>{$('gate').classList.add('out');setTimeout(()=>$('gate').remove(),700)};
+// Auto prefill form if attendee returned
+if(me!==null&&reg[me]){
+  const u=reg[me];
+  $('f').elements.n.value=u.n;
+  $('f').elements.r.value=u.r;
+}
 </script></body></html>
